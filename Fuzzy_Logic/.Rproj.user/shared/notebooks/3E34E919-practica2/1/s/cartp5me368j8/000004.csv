@@ -1,0 +1,2 @@
+"0","datos1 <- datos %>% select(Country, Region, Judicial_Effectiveness) %>%  head()"
+"0","knitr::kable(datos1, caption = ""Datos"")"

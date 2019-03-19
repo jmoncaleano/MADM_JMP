@@ -1,0 +1,2 @@
+"0","egatur=read.table(""..//Fuzzy_Logic/egatur2018.txt"",header=TRUE,sep="","")"
+"0","head(egatur)"

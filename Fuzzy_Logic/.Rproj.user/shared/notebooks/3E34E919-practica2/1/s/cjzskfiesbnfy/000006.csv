@@ -1,0 +1,4 @@
+"0","legend(""topright"", legend = c(as.character(paises[[1,1]]), as.character(paises[[2,1]]),"
+"0","                              as.character(paises[[3,1]]), as.character(paises[[4,1]]), "
+"0","                              as.character(paises[[5,1]])), col = c(1,2,3,4,5),"
+"0","       lwd=c(2,2))"
