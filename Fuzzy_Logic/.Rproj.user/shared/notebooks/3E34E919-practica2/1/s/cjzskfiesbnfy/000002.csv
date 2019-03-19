@@ -1,2 +1,0 @@
-"0","#knitr::kable(paises, caption = ""Datos"")"
-"0","plot(A1, xlim=c(80,105), lty=1)"

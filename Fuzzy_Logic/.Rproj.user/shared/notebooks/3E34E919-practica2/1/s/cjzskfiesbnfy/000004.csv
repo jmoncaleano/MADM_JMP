@@ -1,5 +1,0 @@
-"0","fzz <- c(A1)"
-"0","for (i in 2:nrow(paises)) {"
-"0","  plot(funcion_p(i), add=TRUE, col=i)"
-"0","  fzz <- c(fzz, funcion_p(i))"
-"0","}"

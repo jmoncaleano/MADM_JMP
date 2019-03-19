@@ -1,4 +1,0 @@
-"0","for (i in 2:nrow(region)){"
-"0","  plot(funcion_r(i)*(1/region$Judicial_Effectiveness_r[i]),col=i,add=TRUE)"
-"0","  abline(v=region$Judicial_Effectiveness_r[i]*(1/region$Judicial_Effectiveness_r[i]),col=6)"
-"0","}"

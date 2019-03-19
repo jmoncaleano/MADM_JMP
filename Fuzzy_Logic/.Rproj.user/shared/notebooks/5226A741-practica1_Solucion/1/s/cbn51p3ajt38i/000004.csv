@@ -1,3 +1,0 @@
-"0","for (i in 2:dim(egatur)[1]){"
-"0","  plot(gasto_fuzzy[[i]]*(1/egatur$turistas[i]),col=i,add=TRUE)"
-"0","}"

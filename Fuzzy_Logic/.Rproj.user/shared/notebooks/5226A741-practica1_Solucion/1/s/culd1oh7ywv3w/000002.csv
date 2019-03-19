@@ -1,6 +1,0 @@
-"0","library(""FuzzyNumbers"")"
-"0","m=min(egatur$turistas)"
-"0","M=max(egatur$turistas)"
-"0","f=function(x){TriangularFuzzyNumber(x[1]-x[1]*(0.2-0.1*(x[2]-m)/(M-m)),x[1],x[1]+x[1]*(0.2-0.1*(x[2]-m)/(M-m)) )}"
-"0","gasto_fuzzy=apply(egatur[,-1],1,FUN=f)"
-"0","plot(gasto_fuzzy[[1]],xlim=c(0,1.2*max(egatur$gasto_total)),col=1)"
