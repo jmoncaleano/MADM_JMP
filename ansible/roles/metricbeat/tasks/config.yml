@@ -1,0 +1,14 @@
+---
+
+# FIXME: configuration test would be nice
+
+- name: Metricbeat configuration file
+  template:
+    src: "{{metricbeat_config_file}}"
+    dest: "{{metricbeat_config_file_path}}"
+    owner: "{{metricbeat_user}}"
+    group: "{{metricbeat_group}}"
+    mode: 0640
+  notify: metricbeat restart
+
+# vi:ts=2:sw=2:et:ft=yaml
