@@ -1,0 +1,65 @@
+version: "2"
+services:
+        #Elasticsearch container
+        elasticsearch:
+                container_name: elasticsearch
+                hostname: elasticsearch
+                image: "docker.elastic.co/elasticsearch/elasticsearch:7.0.1"
+                environment:
+                        - http.host=0.0.0.0
+                        - transport.host=127.0.0.1
+                        - bootstrap.memory_lock=true
+                        - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+                mem_limit: 2g
+                ulimits:
+                        memlock:
+                                soft: -1
+                                hard: -1
+                volumes:
+                        - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/elasticsearch.yml
+                        - esdata:/usr/share/elasticsearch/data
+        #Port 9200 for elasticsearcht
+                ports: ['9200:9200']
+                networks: ['stack']
+
+        #Kibana container UI reports
+        kibana:
+                container_name: kibana
+                hostname: kibana
+                image: "docker.elastic.co/kibana/kibana:7.0.1"
+                volumes:
+                        - ./config/kibana/kibana.yml:/usr/share/kibana/kibana.yml
+        #Port 5601 for kibanat
+                ports: ['5601:5601']
+                networks: ['stack']
+        #Kibana depends of elasticsearchy
+                depends_on: ['elasticsearch']
+                environment:
+                        - "ELASTICSEARCH_PASSWORD=mypass"
+        
+
+        # Metricbeat container
+        metricbeat:
+                container_name: metricbeat
+                hostname: metricbeat
+                user: root
+                image: "docker.elastic.co/beats/metricbeat:7.0.1"
+                volumes:
+                        #Metricbeat configuration
+                        - ./config/metricbeat.yml:/usr/share/metricbeat.yml
+                        #System events
+                        - ./config/modules.d/system.yml:/usr/share/modules.d/system.yml
+                        - /proc:/hostfs/proc:ro
+                        - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+                        - /var/run/docker.sock:/var/run/docker.sock
+                        - /:/hostfs:ro
+                command: metricbeat -e -system.hostfs=/hostfs -E output.elasticsearch.username=elastic -E output.elasticsearch.password=mypass -strict.perms=false
+                networks: ['stack']
+                restart: on-failure
+                depends_on: ['elasticsearch']          
+                
+volumes:
+        esdata:
+                driver: local
+networks: {stack: {}}
+
