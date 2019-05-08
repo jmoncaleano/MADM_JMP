@@ -1,2 +1,0 @@
-# {{ ansible_managed }}
-{{ metricbeat_config|to_nice_yaml }}
