@@ -7,6 +7,11 @@
 
 - Ejecutar el comando ansible con usuario root:
   ansible-playbook playbook.yml -i hosts -u root -k
+  
+- Visualización:
+  Elasticsearch: http://localhost9200
+  Kibana: http://localhost:5106
+  Metricbeat: http://localhost:5106 -> index metricbeat
 
 - Bibliografìa:
   https://github.com/sirkjohannsen/ansible-role-metricbeat
