@@ -2,7 +2,7 @@
   docker-compose up
   
 - Visualización:
-  Elasticsearch: http://localhost9200
+  Elasticsearch: http://localhost:9200
   Kibana: http://localhost:5106
   Metricbeat: http://localhost:5106 -> index metricbeat
 
