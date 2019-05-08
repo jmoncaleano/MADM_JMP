@@ -1,0 +1,88 @@
+---
+
+# Metricbeat user and group
+#  WARNING: If you run metricbeat with a user other than root make sure
+#  your logs are readable by the metricbeat user. Add the metricbeat user
+#  to a privileged group, with access to your logs (adm)
+metricbeat_user:  root
+metricbeat_group: elasticsearch
+
+# Create the metricbeat user and group
+metricbeat_create_user: true
+
+# Metricbeat version to use
+# 
+metricbeat_version: 6.x
+
+# Metricbeat Solaris url
+#
+# metricbeat_solaris_url: {{http://<url_to_your_pkg>/metricbeat-{{ metricbeat_version }}-solaris-amd64.pkg
+
+
+# Start metricbeat at boot time
+#
+metricbeat_start_at_boot: True
+
+# Metricbeat version upgrade
+#  This options allows package upgrades. 
+#  Make sure you know what this implies.
+metricbeat_upgrade: false
+
+metricbeat_config_file: metricbeat.yml
+metricbeat_config_file_path: /etc/kibana/metricbeat.yml
+
+# Metricbeat configuration
+#  The configuratlion is built based on a single variable, in YAML format, metricbeat_config.
+#  Just for fun and example, it has been splitted into multiple vars:
+#
+#   - metricbeat_config_prospectors
+#   - metricbeat_config_output
+#   - metricbeat_config_shipper
+#   - metricbeat_config_logging
+#
+
+metricbeat_config:
+  fields:
+    env: "{{ env | default('none') }}"
+  metricbeat.modules:
+  - module: system
+    metricsets:
+      - cpu
+      - load
+      - core
+      - diskio
+      - filesystem
+      - fsstat
+      - memory
+      - network
+      - process
+      - socket
+    enabled: true
+    period: 60s
+    processes: ['.*']
+  output.elasticsearch:
+    enabled: true
+    hosts: ["http://localhost:9200"]
+    username: "{{ metricbeat_user }}"
+    group: "{{ metricbeat_group }}"
+#    index: "metricbeat-{{env}}-%{+yyyy.MM.dd}"
+  logging:
+    to_syslog: false
+    to_files: true
+    level: error
+    files:
+      - path: /var/log/metricbeat
+      - name: metricbeat.log
+      - keepfiles: 5
+      - rotateeverybytes: 10485760 # = 10MB
+
+# List of template files to copy 
+metricbeat_templates: "{{metricbeat_config_file}}"
+
+metricbeat_install_default_kibana_dashboards: False
+metricbeat_es_user: "metricbeat"
+metricbeat_es_password: ""
+metricbeat_kibana_index: ".kibana_1"
+metricbeat_es_url: "{{ elasticsearch_proto | default('http') }}://{{ elasticsearch_host | default('localhost:9200') }}"
+
+# vi:ts=2:sw=2:et:ft=yaml

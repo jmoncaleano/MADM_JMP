@@ -1,0 +1,6 @@
+---
+
+- include: setup-Debian.yml
+  tags: [ 'metricbeat', 'metricbeat.install' ]
+
+# vi:ts=2:sw=2:et:ft=yaml
